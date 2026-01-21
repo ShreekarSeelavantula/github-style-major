@@ -1,0 +1,331 @@
+📌 MASTER PROMPT FOR REPLIT (COPY EVERYTHING BELOW)
+Project Title
+
+AI-Based Personalized Study Plan Generator using Syllabus Analysis and LLM-Driven Familiarity Assessment
+
+Project Overview
+
+Build a full-stack web application that automatically generates a personalized study timetable for a student based on their uploaded syllabus, initial familiarity with the subject, available study time, and exam deadline.
+
+The system must not rely on manual admin intervention, must be scalable, and must use LLMs only for question generation, not for decision-making logic.
+
+The project is intended for a B.Tech CSE major project and journal publication, so all logic must be explainable, rule-based, and realistic.
+
+High-Level Workflow
+
+Student registers/logs in
+
+Student uploads syllabus (PDF or image)
+
+System extracts text using OCR
+
+NLP extracts subject, topics, and subtopics
+
+System generates syllabus-specific MCQs using an LLM
+
+Student takes a short familiarity test
+
+System classifies learner as Slow / Medium / Fast
+
+System analyzes topic difficulty
+
+System generates a personalized, day-wise study plan
+
+System adapts the plan based on student progress
+
+Technology Stack (Mandatory)
+
+Backend: Python + FastAPI
+
+Database: PostgreSQL or MySQL
+
+Frontend: React (preferred) or basic HTML/CSS
+
+OCR: Tesseract or EasyOCR
+
+NLP: spaCy / regex-based parsing
+
+AI: LLM API (ChatGPT or Gemini) — ONLY for MCQ generation
+
+Authentication: JWT or session-based
+
+Module-Wise Detailed Requirements
+MODULE 1: User Management
+
+Student registration & login
+
+Store:
+
+Name
+
+Email
+
+Academic level
+
+Secure authentication
+
+Database tables:
+
+users
+
+user_profiles
+
+MODULE 2: Syllabus Upload & Text Extraction
+
+Input:
+
+PDF or image syllabus
+
+Process:
+
+Detect file type
+
+Extract text:
+
+PDF → pdfplumber / PyMuPDF
+
+Image → OCR
+
+Output:
+
+Cleaned syllabus text
+
+Store:
+
+Raw text
+
+Processed text
+
+MODULE 3: Topic & Subject Extraction (NLP)
+
+From extracted text:
+
+Detect subject domain (Maths, DBMS, DSA, OS, etc.)
+
+Extract:
+
+Units
+
+Topics
+
+Subtopics
+
+Use:
+
+Regex for “Unit”, “Module”
+
+Keyword matching
+
+Noun phrase extraction
+
+Output example:
+
+{
+  "subject": "DBMS",
+  "topics": [
+    {
+      "name": "Normalization",
+      "subtopics": ["1NF", "2NF", "3NF"]
+    },
+    {
+      "name": "ER Diagrams",
+      "subtopics": []
+    }
+  ]
+}
+
+MODULE 4: Topic Difficulty Classification
+
+Each topic must be classified as Easy / Medium / Hard using rule-based logic.
+
+Rules example:
+
+More than 2 subtopics → Hard
+
+Keywords like “algorithm”, “normalization”, “optimization” → Hard
+
+Definition-based topics → Easy
+
+Important:
+❌ Do NOT use ML
+❌ Do NOT claim intelligence
+
+MODULE 5: LLM-Based Familiarity Test (Core Feature)
+
+Use an LLM to dynamically generate syllabus-specific MCQs.
+
+Prompt logic:
+
+Input extracted topics
+
+Request:
+
+8–12 MCQs
+
+4 options each
+
+Correct answer
+
+Beginner level
+
+Output strictly in JSON
+
+LLM role:
+✔ Question generation only
+❌ No evaluation logic
+
+Purpose:
+
+Estimate syllabus familiarity, not intelligence
+
+MODULE 6: Familiarity Test Execution & Learner Classification
+
+Display MCQs instantly
+
+Measure:
+
+Score
+
+Time taken
+
+Classification rules:
+
+< 40% → Slow learner
+
+40–70% → Medium learner
+
+70% → Fast learner
+
+Store learner profile.
+
+MODULE 7: Personalization Factors
+
+Use ONLY these factors:
+
+Learner pace (slow/medium/fast)
+
+Topic difficulty
+
+Available study hours per day
+
+Exam deadline
+
+Student task completion behavior (after plan starts)
+
+❌ No psychological profiling
+❌ No IQ / cognitive claims
+
+MODULE 8: Study Plan Generation Algorithm
+Base Time Allocation:
+
+Easy → 1 hour
+
+Medium → 2 hours
+
+Hard → 3 hours
+
+Pace Multiplier:
+
+Slow → 1.5
+
+Medium → 1.0
+
+Fast → 0.75
+
+Formula:
+
+Adjusted Time = Base Time × Pace Multiplier
+
+Scheduling Rules:
+
+Do not exceed daily study hours
+
+Do not schedule multiple hard topics in one day for slow learners
+
+Break large topics across days
+
+Insert revision after hard topics
+
+Add weekly revision buffer
+
+Output:
+
+Day-wise timetable:
+
+{
+  "Day 1": ["Normalization (1NF)"],
+  "Day 2": ["Normalization (2NF)"],
+  "Day 3": ["Revision"],
+  "Day 4": ["ER Diagram"]
+}
+
+MODULE 9: Adaptive Update Engine
+
+Track:
+
+Task completion
+
+Delays
+
+Early finishes
+
+Rules:
+
+Early completion for 3 days → increase pace
+
+Missed tasks for 2 days → reduce load
+
+Regenerate plan dynamically.
+
+Constraints & Ethics (VERY IMPORTANT)
+
+Do NOT claim psychological evaluation
+
+Do NOT claim perfect accuracy
+
+Do NOT use deep ML models
+
+Clearly state limitations
+
+LLM output is used only for familiarity estimation
+
+Expected Features Summary
+
+✔ Fully automated
+✔ Scalable
+✔ Personalized
+✔ Explainable
+✔ Journal-safe
+✔ B.Tech feasible
+
+Final Goal
+
+Deliver a working system that:
+
+Accepts any syllabus
+
+Generates syllabus-specific familiarity questions
+
+Classifies learner pace
+
+Creates an adaptive personalized study plan
+
+Coding Instructions for Replit AI
+
+Generate clean, modular FastAPI backend
+
+Use clear folder structure
+
+Comment logic clearly
+
+Separate:
+
+OCR
+
+NLP
+
+LLM integration
+
+Scheduling logic
+
+Make code readable and defensible
